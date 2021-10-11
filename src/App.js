@@ -36,7 +36,10 @@ function App() {
         {albums ? (
           <CollectionList collections={albums} />
         ) : (
-          <p data-testid="loading">Loading....</p>
+          <p data-testid="not-found">
+            *Please start the server at port 4000 before running this
+            application
+          </p>
         )}
       </section>
     </div>

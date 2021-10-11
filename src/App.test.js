@@ -34,7 +34,7 @@ describe("AppComponent", () => {
     const mockedFetch = jest.fn().mockResolvedValueOnce(mockedResponse);
     global.fetch = mockedFetch;
     const { getByTestId } = render(<App />);
-    const element = await waitFor(() => getByTestId("loading"));
+    const element = await waitFor(() => getByTestId("not-found"));
     expect(element).toBeInTheDocument();
   });
 });
