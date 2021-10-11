@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import getAlbums from "./service";
+import CollectionList from "./components/CollectionList/CollectionList";
+import "./App.css";
 
 function App() {
+  const [albums, setAlbums] = useState([]);
+  const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    const fetchAlbums = async () => {
+      const data = await getAlbums();
+      const filteredData = data.filter((item) =>
+        item.collectionName.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setAlbums(filteredData);
+    };
+    fetchAlbums();
+  }, [searchText]);
+
+  const handleOnChange = (e) => {
+    const str = e.target.value;
+    setSearchText(str);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <section className="container">
+        <input
+          type="text"
+          className="search"
+          value={searchText}
+          onChange={handleOnChange}
+          placeholder="Search album"
+        />
+        <CollectionList collections={albums} />
+      </section>
     </div>
   );
 }
