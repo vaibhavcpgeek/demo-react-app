@@ -4,13 +4,13 @@ import CollectionList from "./components/CollectionList/CollectionList";
 import "./App.css";
 
 function App() {
-  const [albums, setAlbums] = useState([]);
+  const [albums, setAlbums] = useState(null);
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     const fetchAlbums = async () => {
       const data = await getAlbums();
-      const filteredData = data.filter((item) =>
+      const filteredData = data?.filter((item) =>
         item.collectionName.toLowerCase().includes(searchText.toLowerCase())
       );
       setAlbums(filteredData);
@@ -33,7 +33,11 @@ function App() {
           onChange={handleOnChange}
           placeholder="Search album"
         />
-        <CollectionList collections={albums} />
+        {albums ? (
+          <CollectionList collections={albums} />
+        ) : (
+          <p data-testid="loading">Loading....</p>
+        )}
       </section>
     </div>
   );

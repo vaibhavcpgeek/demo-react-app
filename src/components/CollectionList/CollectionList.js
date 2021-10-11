@@ -3,7 +3,7 @@ import "./CollectionList.css";
 
 const CollectionList = ({ collections }) => {
   return (
-    <ul>
+    <ul data-testid="collection-list">
       {collections?.map((item) => {
         return (
           <li key={item.collectionId} className="row card">

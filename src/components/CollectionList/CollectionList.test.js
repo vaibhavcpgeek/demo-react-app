@@ -1,20 +1,19 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import CollectionList from "./CollectionList";
 
 describe("CollectionList", () => {
-  it("should render correctly", () => {
+  it("should render with correct pro", () => {
     const props = {
       albums: [
         {
-          collectionId: "",
-          collectionName: "",
-          artworkUrl100: "",
+          collectionId: "12356646",
+          collectionName: "Sleep Through the Static",
+          artworkUrl100: "http://example.com",
         },
       ],
     };
-    const component = shallow(<CollectionList {...props} />);
-
-    expect(component).toMatchSnapshot();
+    render(<CollectionList {...props} />);
+    expect(screen.getByTestId("collection-list")).toBeInTheDocument();
   });
 });
